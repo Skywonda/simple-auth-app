@@ -1,6 +1,7 @@
 var express = require("express"),
   morgan = require("morgan"),
-  passport = require("passport");
+  passport = require("passport"),
+  router = require("../app/routes/index");
 
 module.exports = function () {
   var app = express();
@@ -9,6 +10,8 @@ module.exports = function () {
   app.use(morgan("dev"));
 
   app.use(passport.initialize());
+
+  app.use(router);
 
   return app;
 };
