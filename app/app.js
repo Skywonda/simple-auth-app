@@ -13,5 +13,7 @@ module.exports = function () {
 
   app.use(router);
 
+  app.use(require('../utils/error.handler'))
+
   return app;
 };

@@ -4,7 +4,7 @@ module.exports = (err, req, res, next) => {
     customError.statusCode = err.statusCode || 500;
     customError.msg = err.msg || err.message || "Something went wrong!";
   }
-  res.statusCode(customError.statusCode).json({
+  res.status(customError.statusCode).json({
     msg: customError.msg
   })
 };
