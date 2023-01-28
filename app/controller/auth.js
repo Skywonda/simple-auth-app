@@ -1,4 +1,4 @@
-const requestHandler = require('.')
+const requestHandler = require('./index')
 const UserService = require('../services/user.services')
 
 class AuthControler {

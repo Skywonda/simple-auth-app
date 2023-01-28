@@ -1,6 +1,5 @@
 const { ConflictError } = require("../../lib/exception");
 const User = require("../models/user");
-const tst = require(".");
 
 class UserService {
   static createUser = async ({ account }) => {
