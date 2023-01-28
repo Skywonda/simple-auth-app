@@ -1,5 +1,4 @@
 var app = require("./app/app"),
-  model = require("./app/models"),
 
   server = app();
 
