@@ -8,7 +8,7 @@ module.exports = function () {
   app.use(express.json());
   app.use(morgan("dev"));
 
-  app.use(passport);
+  app.use(passport.initialize());
 
   return app;
 };
