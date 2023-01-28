@@ -28,7 +28,7 @@ module.exports = passport.use(
           user = omit(newUser.toObject(), ["password", "googleId"]);
           return done(null, user);
         } catch (err) {
-          return done(null, false);
+          return done(err, false);
         }
       } else {
         user.firstname = profile.name.givenName();
