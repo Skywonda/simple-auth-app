@@ -1,3 +1,4 @@
+const { hash } = require("argon2");
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
@@ -28,6 +29,11 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+  this.password = await hash(this.password)
+})
 
 userSchema.method.updateLastLogin = function () {
   this.lastlogin = new Date();
