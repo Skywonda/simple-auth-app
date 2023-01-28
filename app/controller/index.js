@@ -14,6 +14,7 @@ module.exports = ({ validator, handler }) => {
         data,
       });
     } catch (err) {
+      console.log(err)
       next(err);
     }
   };

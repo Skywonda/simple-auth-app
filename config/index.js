@@ -1,3 +1,4 @@
+require('dotenv').config()
 module.exports = {
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID,
@@ -7,5 +8,9 @@ module.exports = {
   jwt: {
     secret: process.env.JWT_SECRET,
     expiry: process.env.JWT_EXPIRY
+  },
+  db: {
+    name: process.env.DB_NAME,
+    url: process.env.DB_URL
   }
 }

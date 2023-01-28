@@ -2,8 +2,9 @@ const { ConflictError } = require("../../lib/exception");
 const User = require("../models/user");
 
 class UserService {
-  static createUser = async ({ account }) => {
+  static createUser = async (account) => {
     const user = await User.findOne({ email: account.email });
+    console.log(user)
     if (user) {
       throw new ConflictError("This user already exist!");
     }
