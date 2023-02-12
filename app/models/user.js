@@ -14,14 +14,18 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true
     },
     profileImage: {
       type: String
     },
-    password: String,
-
-    googleId: String,
-    facebookId: String,
+    provider: {
+      type: String,
+      enum: []
+    },
+    provider_id: {
+      type: String
+    },
 
     lastlogin: {
       type: Date,
