@@ -14,17 +14,21 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     profileImage: {
-      type: String
+      type: String,
+    },
+    password: {
+      type: String,
+      select: false
     },
     provider: {
       type: String,
-      enum: []
+      enum: ["google", "facebook"],
     },
     provider_id: {
-      type: String
+      type: String,
     },
 
     lastlogin: {
@@ -34,10 +38,10 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.pre('save', async function () {
-  if (!this.isModified('password')) return;
-  this.password = await hash(this.password)
-})
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+  this.password = await hash(this.password);
+});
 
 userSchema.method.updateLastLogin = function () {
   this.lastlogin = new Date();

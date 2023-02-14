@@ -1,10 +1,18 @@
 const requestHandler = require('./index')
-const UserService = require('../services/user.services')
+const AuthService = require('../services/auth.services')
 
-class AuthControler {
+class AuthController {
   static createUser = requestHandler({
-    handler: UserService.createUser
+    handler: AuthService.createUser
+  })
+
+  static loginUser = requestHandler({
+    handler: AuthService.loginUser
+  })
+
+  static googleAuthHandler = requestHandler({
+    handler: AuthService.googleAuth
   })
 }
 
-module.exports = AuthControler
+module.exports = AuthController

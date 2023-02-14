@@ -5,29 +5,33 @@ var passport = require("passport"),
   User = require("../../app/models/user"),
   config = require("../index");
 
-module.exports = passport.use(
-  new GoogleStrategy(
+module.exports = {
+  googleStrategy: new GoogleStrategy(
     {
       clientID: config.google.clientId,
       clientSecret: config.google.secret,
       callbackURL: config.google.callbackUrl,
+      passReqToCallback: true,
     },
 
-    async (accessToken, refreshToken, profile, done) => {
-      let user = await User.findOne({ googleId: profile.id });
+    async (req, accessToken, refreshToken, profile, done) => {
+      let user = await User.findOne({ provider_id: profile.id, provider: 'google' });
 
       if (!user) {
         try {
           let newUser = new User({
-            googleId: profile.id,
-            firstname: profile.name.givenName(),
-            lastname: profile.lastname.familyName(),
+            provider_id: profile.id,
+            provider: 'google',
+            firstname: profile.name.givenName,
+            lastname: profile.name.familyName,
             email: profile.emails[0].value,
             profileImage: profile.photos[0].value,
           });
-          user = omit(newUser.toObject(), ["password", "googleId"]);
+          await newUser.save()
+          user = omit(newUser.toObject(), ["password", "provider_id"]);
           return done(null, user);
         } catch (err) {
+          console.log(err)
           return done(err, false);
         }
       } else {
@@ -41,5 +45,5 @@ module.exports = passport.use(
         });
       }
     }
-  )
-);
+  ),
+};
